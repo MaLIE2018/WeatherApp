@@ -19,7 +19,7 @@ const TopNav = () => {
         <Form
           inline
           onSubmit={(e) => e.preventDefault()}
-          className='d-flex flex-row flex-nowrap'>
+          className='d-flex flex-row flex-nowrap ml-auto'>
           <FormControl
             type='text'
             ref={input}
