@@ -31,6 +31,8 @@ const TopNav = () => {
             onClick={() => {
               if (!input.current) throw Error("divRef is not assigned");
               dispatch({ type: "SET_QUERY", payload: input.current.value });
+              input.current.value = "";
+              setOpen(false);
             }}>
             {" "}
             <BsSearch />

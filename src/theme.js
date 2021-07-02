@@ -8,6 +8,11 @@ export const GlobalStyle = createGlobalStyle`
       font-family: "Open Sans", sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      background: #672DF3;
+      background: -webkit-linear-gradient(bottom left, #672DF3, #AA51DC);
+      background: -moz-linear-gradient(bottom left, #672DF3, #AA51DC);
+      background: linear-gradient(to top right, #672DF3, #AA51DC);
+      color: white;
     }
 `;
 

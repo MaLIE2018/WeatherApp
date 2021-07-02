@@ -8,13 +8,18 @@ import { H1 } from "../../theme";
 import { useEffect } from "react";
 import { getCelsius } from "../../lib/helper";
 import getHours from "date-fns/getHours";
-import getDay from "date-fns/getDay";
+import format from "date-fns/format";
+import { useInView } from "react-intersection-observer";
 
 const Home = () => {
   const query = useSelector((state: IRootState) => state.query.query);
   const currentWeather = useSelector(
     (state: IRootState) => state.currentWeather.currentWeather
   );
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0.55,
+  });
   const foreCast = useSelector((state: IRootState) => state.foreCast.foreCast);
   const nextDays = useSelector((state: IRootState) => state.nextDays.nextDays);
 
@@ -52,8 +57,17 @@ const Home = () => {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+      /* you can also use 'auto' behaviour
+       in place of 'smooth' */
+    });
+  };
   useEffect(() => {
     getData();
+    scrollToTop();
   }, [query]);
 
   useEffect(() => {
@@ -64,21 +78,34 @@ const Home = () => {
     <Row>
       <Col>
         <TopNav />
-        <StickyHeader>
-          <div>{currentWeather.name}</div>
+        <StickyHeader inView={inView}>
+          <div>
+            <h2>{currentWeather.name}</h2>
+          </div>
           <div>{currentWeather.weather[0].description} </div>
           <H1>
             {getCelsius(currentWeather.main.temp).toFixed(0)}{" "}
             <span>&#8451;</span>{" "}
           </H1>
+          <div className='d-flex flew-row'>
+            <h6 className='mr-3'>
+              H:{getCelsius(currentWeather.main.temp_max).toFixed(0)}{" "}
+            </h6>
+            <h6>L:{getCelsius(currentWeather.main.temp_min).toFixed(0)} </h6>
+          </div>
         </StickyHeader>
-        <Details>
+        <Details ref={ref}>
           <div className='dropdown-divider'></div>
           <DetailsDay>
             {foreCast.list.map((hours) => {
               return (
                 <div className='hours'>
-                  <span>{getHours(new Date(hours.dt_txt)).toString()}</span>
+                  <span>{`${getHours(
+                    new Date(hours.dt_txt)
+                  ).toString()} ${format(
+                    new Date(hours.dt_txt),
+                    "bbb"
+                  ).toUpperCase()}`}</span>
                   <span>
                     <img
                       src={`http://openweathermap.org/img/wn/${hours.weather[0].icon}@2x.png`}
@@ -99,9 +126,7 @@ const Home = () => {
             <ul>
               {nextDays.daily.map((day) => (
                 <li>
-                  <span>
-                    {getDay(new Date(day.dt + nextDays.current.dt)).toString()}
-                  </span>
+                  <span>{format(new Date(day.dt * 1000), "iiii")}</span>
                   <span>
                     <img
                       src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
