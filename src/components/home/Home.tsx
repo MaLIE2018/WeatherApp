@@ -101,9 +101,9 @@ const Home = () => {
               return (
                 <div className='hours'>
                   <span>{`${getHours(
-                    new Date(hours.dt_txt)
+                    new Date(hours.dt * 1000)
                   ).toString()} ${format(
-                    new Date(hours.dt_txt),
+                    new Date(hours.dt * 1000),
                     "bbb"
                   ).toUpperCase()}`}</span>
                   <span>
