@@ -6,7 +6,6 @@ import { BottomNavStyled } from "./styles.js";
 import { BiListPlus, BiListCheck } from "react-icons/bi";
 
 const BottomNav = ({ location }: RouteComponentProps) => {
-  const { pathname } = location;
   const favs = useSelector((state: IRootState) => state.favorites);
   const currentWeather = useSelector(
     (state: IRootState) => state.currentWeather

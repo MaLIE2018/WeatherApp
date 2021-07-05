@@ -1,10 +1,8 @@
-import React from "react";
 import { ListGroup } from "react-bootstrap";
-import { useQueries, UseQueryOptions } from "react-query";
+import { useQueries } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "../../redux/types/types";
 import { Favs } from "./styles";
-import { CurrentWeather } from "./../../types/currentWeather";
 import { getCelsius } from "../../lib/helper";
 import { Link } from "react-router-dom";
 
@@ -17,13 +15,15 @@ const Favorites = () => {
     ).then((res) => res.json());
 
   const results = useQueries([
-    ...favs.map((fav, i) => {
-      return {
-        queryKey: ["currentWeather", i],
-        queryFn: () => getCurrentWeather(fav),
-        refetchOnWindowFocus: false,
-      };
-    }),
+    ...favs
+      .sort((a, b) => (a > b ? 1 : -1))
+      .map((fav, i) => {
+        return {
+          queryKey: ["currentWeather", i],
+          queryFn: () => getCurrentWeather(fav),
+          refetchOnWindowFocus: false,
+        };
+      }),
   ]);
 
   return (

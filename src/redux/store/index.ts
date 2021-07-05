@@ -1,6 +1,5 @@
 import { createStore, StoreEnhancer } from "redux";
 import allReducers from "../reducers/index";
-import { IRootState } from "../types/types";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
