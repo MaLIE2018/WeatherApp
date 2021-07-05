@@ -7,7 +7,7 @@ const TopNav = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const input = useRef<HTMLInputElement>(null);
-  const query = useSelector((state: IRootState) => state.query.query);
+  const query = useSelector((state: IRootState) => state.query);
 
   useEffect(() => {
     if (query.length === 0) setOpen(false);
@@ -18,7 +18,13 @@ const TopNav = () => {
       {open ? (
         <Form
           inline
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (!input.current) throw Error("divRef is not assigned");
+            dispatch({ type: "SET_QUERY", payload: input.current.value });
+            input.current.value = "";
+            setOpen(false);
+          }}
           className='d-flex flex-row flex-nowrap ml-auto'>
           <FormControl
             type='text'

@@ -1,13 +1,7 @@
-import { queryState } from "../types/types";
-
-const Init: queryState = {
-  query: "Berlin",
-};
-
-function queryReducers(state: queryState = Init, action: any): queryState {
+function queryReducers(state: string = "Berlin", action: any): string {
   switch (action.type) {
     case "SET_QUERY":
-      return { ...state, query: action.payload };
+      return (state = action.payload);
     default:
       return state;
   }

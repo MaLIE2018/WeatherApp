@@ -12,16 +12,16 @@ import format from "date-fns/format";
 import { useInView } from "react-intersection-observer";
 
 const Home = () => {
-  const query = useSelector((state: IRootState) => state.query.query);
+  const query = useSelector((state: IRootState) => state.query);
   const currentWeather = useSelector(
-    (state: IRootState) => state.currentWeather.currentWeather
+    (state: IRootState) => state.currentWeather
   );
   const { ref, inView, entry } = useInView({
     /* Optional options */
     threshold: 0.55,
   });
-  const foreCast = useSelector((state: IRootState) => state.foreCast.foreCast);
-  const nextDays = useSelector((state: IRootState) => state.nextDays.nextDays);
+  const foreCast = useSelector((state: IRootState) => state.foreCast);
+  const nextDays = useSelector((state: IRootState) => state.nextDays);
 
   const dispatch = useDispatch();
 
@@ -61,8 +61,6 @@ const Home = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
-      /* you can also use 'auto' behaviour
-       in place of 'smooth' */
     });
   };
   useEffect(() => {
