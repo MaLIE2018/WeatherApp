@@ -1,4 +1,4 @@
-import React from "react";
+import { FunctionComponent } from "react";
 
 interface Props {
   className?: string;
@@ -8,6 +8,9 @@ interface Props {
   maxWidth?: string;
   margin?: string;
 }
-export const PageItemWrapper: React.FC<Props> = ({ className, children }) => {
+export const PageItemWrapper: FunctionComponent<Props> = ({
+  className,
+  children,
+}) => {
   return <div className={className}>{children}</div>;
 };

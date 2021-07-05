@@ -15,10 +15,15 @@ export const StickyHeader = styled(StickyHeaderWrapper)`
   z-index: -1050;
   opacity: ${(props) => (props.inView ? 0 : 1)};
   transition: opacity 0.2s ease;
+ 
 `;
 
 export const Details = styled.div`
   z-index: 1050;
+  .dropdown-divider{
+    margin-left: -15px;
+    margin-right: -15px;
+  }
 `;
 
 export const DetailsDay = styled.div`

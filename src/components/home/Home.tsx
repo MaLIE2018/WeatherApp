@@ -1,4 +1,3 @@
-import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { StickyHeader, Details, DetailsDay, DetailsWeek } from "./styles";
@@ -10,6 +9,7 @@ import { getCelsius } from "../../lib/helper";
 import getHours from "date-fns/getHours";
 import format from "date-fns/format";
 import { useInView } from "react-intersection-observer";
+import BottomNav from "../nav/BottomNav";
 
 const Home = () => {
   const query = useSelector((state: IRootState) => state.query);
@@ -80,7 +80,16 @@ const Home = () => {
           <div>
             <h2>{currentWeather.name}</h2>
           </div>
-          <div>{currentWeather.weather[0].description} </div>
+          <div>
+            <span>
+              <img
+                src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
+                height='50px'
+                width='50px'
+                alt=''
+              />{" "}
+            </span>{" "}
+          </div>
           <H1>
             {getCelsius(currentWeather.main.temp).toFixed(0)}{" "}
             <span>&#8451;</span>{" "}
@@ -141,6 +150,7 @@ const Home = () => {
           </DetailsWeek>
         </Details>
       </Col>
+      <BottomNav />
     </Row>
   );
 };

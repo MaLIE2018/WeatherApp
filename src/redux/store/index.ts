@@ -1,6 +1,13 @@
 import { createStore, StoreEnhancer } from "redux";
 import allReducers from "../reducers/index";
 import { IRootState } from "../types/types";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
+const persistConfig = {
+  key: "root",
+  storage,
+};
 
 type WindowWithDevTools = Window & {
   __REDUX_DEVTOOLS_EXTENSION__: () => StoreEnhancer<unknown, {}>;
@@ -12,11 +19,15 @@ const isReduxDevtoolsExtenstionExist = (
   return "__REDUX_DEVTOOLS_EXTENSION__" in arg;
 };
 
-const store = createStore<IRootState, any, any, any>(
-  allReducers,
-  isReduxDevtoolsExtenstionExist(window)
-    ? window.__REDUX_DEVTOOLS_EXTENSION__()
-    : undefined
-);
+const persistedReducer = persistReducer(persistConfig, allReducers);
 
-export default store;
+export const storePersist = () => {
+  const store = createStore<any, any, any, any>(
+    persistedReducer,
+    isReduxDevtoolsExtenstionExist(window)
+      ? window.__REDUX_DEVTOOLS_EXTENSION__()
+      : undefined
+  );
+  let persistor = persistStore(store);
+  return { store, persistor };
+};

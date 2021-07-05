@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { Navbar, Button, Form, FormControl } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,7 @@ const TopNav = () => {
   }, [query]);
 
   return (
-    <Navbar fixed='top' className=''>
+    <Navbar fixed='top'>
       {open ? (
         <Form
           inline
