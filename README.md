@@ -6,6 +6,7 @@ Mobile-first #Mobile-Only#
 Tech Stack
 *React
 *Redux
+*react-query
 *Redux persist
 *Typescript
 *styled components
